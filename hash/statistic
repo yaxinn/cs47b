@@ -1,0 +1,23 @@
+
+			1040		1041	1042	1043	1044	1045	1046	1047	1048	1049	1050
+---------------------------------------------------------------------------------------------------------
+hash1:		58 mil		60		51		56		60		60		48		46		52		53		63
+
+	max list length vary from 40, 80 to 300
+	ave # compares 			30 - 40
+
+hash2:  	55			54		42		45		61		48		46		51		59		46		41
+
+	max list length around	50
+	ave # compares about 	14
+
+hash3:		47			52		43		45		55		53		47		42		45		45		51
+
+	max list length about 	40
+	ave # compares      	14
+
+
+hash4:		58			49		56		48		59		45		58		58		48		42		53
+										
+	max list length about	40
+	ave # compares			14
