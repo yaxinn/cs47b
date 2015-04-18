@@ -43,14 +43,11 @@ public class Heap {
 		}
 
 		mySize--;
-
 		bubbleDown (root);
 		findPregnant();
 
-
 		if (DEBUGGING) {
 			display ( );
-			// check ( );
 		}
 	}
 
@@ -62,7 +59,6 @@ public class Heap {
 		}
 
 		node next = root;
-
 		while (next != null) {
 
 			if (next.getLeft() == null && next.getRight() == null) {
@@ -95,7 +91,6 @@ public class Heap {
 			else if (next.getRight() == null && next.getLeft() != null) {
 				next.setValue (next.getLeft().getValue());
 				next.setLeft(null);
-				// System.out.println(next.getValue());
 				return;
 			}
 			else if (next.getLeft().getValue () > next.getRight().getValue() ) {
