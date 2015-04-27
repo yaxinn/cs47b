@@ -247,6 +247,7 @@ public class Heap {
 			System.out.print("\ntop value: " + h.top() + ", after remove");
 			h.remove();
 		}
+
 	}
 
 
