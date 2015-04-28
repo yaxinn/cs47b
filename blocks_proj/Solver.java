@@ -48,7 +48,12 @@ public class Solver {
 			fn_goal = args[1];
 		}
 
+		else return;
+
 		puzzle.readFiles (fn_init, fn_goal);
+
+		puzzle.init_config.checkGoal (puzzle.goal_config);
+
 		return;
 	}
 
@@ -57,21 +62,20 @@ public class Solver {
 		BufferedReader goal_reader = new BufferedReader (new FileReader (goal));
 
 		String line;
-		Scanner sc;
 		String tok[];
 
 		line = init_reader.readLine();
-		sc = new Scanner(line).useDelimiter(" ");
+		tok = line.split(" ");
 
-	// set length and width
-		tray_length = sc.nextInt();
-		tray_width = sc.nextInt();
+		/* set length and width */
+		tray_length = Integer.parseInt(tok[0]);
+		tray_width = Integer.parseInt(tok[1]);
 
-		System.out.println( tray_length + " x " + tray_width);
+		System.out.println("Tray Size: " + tray_length + " x " + tray_width);
 		System.out.println(" initial configuration ");
 		
+		/* configure the initial state */
 		init_config = new state (tray_length, tray_width);
-
 		while ( (line = init_reader.readLine()) != null ) {
 			// System.out.println (line);
 			/* implement to parse the representation of block */
@@ -80,8 +84,9 @@ public class Solver {
 					Integer.parseInt(tok[2]), Integer.parseInt(tok[3])) );
 		}
 
-		System.out.println("goal configuration ");
+		System.out.println("\n goal configuration ");
 
+		/* configure the goal state */
 		while ( (line = goal_reader.readLine()) != null ) {
 			// System.out.println (line);
 			/* implement to parse the representation of block */
@@ -90,10 +95,12 @@ public class Solver {
 								Integer.parseInt(tok[2]), Integer.parseInt(tok[3])) );
 		}
 
+		// debug
+		for (Block b: goal_config)
+			System.out.println("\t" + b);
+
 		init_reader.close();
 		goal_reader.close();
-
-		return;
 	}
 
 	private static void prtOptions () {
@@ -124,9 +131,22 @@ public class Solver {
 			return len + " " + width + " " + row + " " + col;
 		}
 
-		public boolean equals (Block b) {
+		@Override
+		public boolean equals (Object o) {
+			Block b = (Block) o;
 			return len == b.len && width == b.width && row == b.row && col == b.col;
 		}
+
+		@Override
+		public int hashCode ( ) {
+			return toString().hashCode();
+		}
+
+		public void prtBlock () {
+			if (DEBUGGING == 0) 
+				System.out.println ("\t" + this);
+		}
+
 	}
 
 	class state {
@@ -147,8 +167,8 @@ public class Solver {
 		}
 
 		public void addBlock (Block b) {
-			config.add ( b);
-			System.out.println (b);
+			config.add ( b );
+			System.out.println ("\t" + b);
 
 			// update empty positions;
 			for (int i = b.row; i < b.row + b.len; i++)
@@ -160,9 +180,32 @@ public class Solver {
 			for (int i = 0; i < len * width; i++ ) {
 				if (mark[i] == false) 
 					empty.add (new Block (1, 1, i / width, i % width));
-
 			}
+
+			// debug
+			for (Block b: empty)
+				b.prtBlock ();
+
 			return empty;
+		}
+
+		public boolean checkGoal (ArrayList<Block> goal) {
+			boolean win = true;
+
+			if (DEBUGGING == 0) 
+				System.out.println ("\n the following block(s) do not satisfy.");
+			for (Block b: goal) {
+				if ( !config.contains (b) ) {
+					b.prtBlock ();
+					win = false;
+				}
+			}
+			return win;
+		}
+
+		public void prtstate () {
+			for (Block b: config)
+				System.out.println (b);
 		}
 
 	}
