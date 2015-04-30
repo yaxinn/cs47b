@@ -1,0 +1,3 @@
+application/postscript; ghostview %s
+application/x-psgz; gzcat %s | ghostview ;
+application/pdf; acroread %s

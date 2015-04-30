@@ -1,0 +1,30 @@
+#############################################################################
+# .dtprofile on the EECS Instructional UNIX computers
+# ---------------------------------------------------
+# This is the default Solaris X86 and HP-UX 10.20 .dtprofile for Instructional
+# accounts.  It is used by the CDE window manager to customize the user's 
+# window setup.   If .dtprofile does not exist in a user's home directory, CDE
+# will create it. 
+#
+# The master copy of this file is in
+#  /share/b/default-class-account/.dtprofile
+#  /share/b/default-named-account/.dtprofile
+#  /share/b/default-master-account/.dtprofile
+#  /share/b/default-master-account/adm/class.dtprofile
+#
+# To have CDE execute the contents of a user's .xsession (which can start twm, 
+# mwm or etc), put this line in .dtprofile:     SESSIONTYPE=xdm
+#
+# .dtprofile and .xsession must be executable 
+# (`chmod 711 ~/.dtprofile ~/.xsession`).
+# 
+# For on-line help and sample .dtprofile commands, type:
+#
+#	setenv MANPATH = /usr/dt/man:${MANPATH}; man dtlogin
+#	more /usr/dt/config/sys.dtprofile
+#
+# Questions to root@cory.eecs.berkeley.edu.
+#
+# (kevinm, 06/14/97)
+#############################################################################
+SESSIONTYPE=xdm
