@@ -94,13 +94,12 @@ class Content {
 		}
 
 		public boolean checkGoal (ArrayList<Block> goal) {
-			boolean win = true;
 			for (Block b: goal) {
 				if ( !config.contains (b) ) {
-					win = false;
+					return false;
 				}
 			}
-			return win;
+			return true;
 		}
 
 		public void prtContent () {
